@@ -1,10 +1,12 @@
 package com.github.pwittchen.playground;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Optional;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.fail;
 
 public class OptionalTest {
 
@@ -30,5 +32,32 @@ public class OptionalTest {
 
 		// then
 		assertThat(isPresent).isFalse();
+	}
+
+	@Test
+	public void shouldBePresentViaIfPresent() {
+		// given
+		final Optional<Object> optional = Optional.of(new Object());
+
+		// when, then
+		optional.ifPresent(object -> assertThat(object).isNotNull());
+	}
+
+	@Test
+	public void shouldBePresentViaIfPresentOrElse() {
+		// given
+		final Optional<Object> optional = Optional.of(new Object());
+
+		// when then
+		optional.ifPresentOrElse(object -> assertThat(object).isNotNull(), Assert::fail);
+	}
+
+	@Test
+	public void shouldNotBePresentViaIfPresentOrElse() {
+		// given
+		final Optional<Object> optional = Optional.empty();
+
+		// when then
+		optional.ifPresentOrElse(object -> fail(), () -> assertThat(optional.isPresent()).isFalse());
 	}
 }
