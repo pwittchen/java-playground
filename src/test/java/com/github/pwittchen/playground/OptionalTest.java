@@ -163,8 +163,4 @@ public class OptionalTest {
     // then
     assertThat(value).isEmpty();
   }
-
-  //TODO #0 add more tests with Optional
-  //TODO #2 add test with Guava
-  //TODO #3 add test with Vavr
 }
