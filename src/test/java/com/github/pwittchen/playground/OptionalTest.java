@@ -112,8 +112,46 @@ public class OptionalTest {
 		assertThat(returnedValue).isEqualTo(object);
 	}
 
+	@Test
+	public void shouldConvertObjectToStringWhenItIsNotEmpty() {
+		// given
+		final Optional<Object> optional = Optional.of(new Object());
+
+		// when
+		final String value = optional.map(o -> o.toString())
+									 .orElse(StringUtils.EMPTY);
+
+		// then
+		assertThat(value).contains("@");
+	}
+
+	@Test
+	public void shouldReturnEmptyStringWhenObjectIsEmpty() {
+		// given
+		final Optional<Object> optional = Optional.empty();
+
+		// when
+		final String value = optional.map(o -> o.toString())
+									 .orElse(StringUtils.EMPTY);
+
+		// then
+		assertThat(value).isEmpty();
+	}
+
+	@Test
+	public void shouldReturnEmptyStringWhenObjectIsEmptyWithMethodReference() {
+		// given
+		final Optional<Object> optional = Optional.empty();
+
+		// when
+		final String value = optional.map(Object::toString)
+									 .orElse(StringUtils.EMPTY);
+
+		// then
+		assertThat(value).isEmpty();
+	}
+
 	//TODO #0 add more tests with Optional
-	//TODO #1 add test with map
 	//TODO #2 add test with Guava
 	//TODO #3 add test with Vavr
 }
