@@ -8,6 +8,9 @@ import java.util.Optional;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
 
+/**
+ * Exploratory Test Case case to verify work of Optional from Java 8, 9 and Guava, Option type from Vavr and Null Object Pattern
+ */
 public class OptionalTest {
 
 	@Test
