@@ -6,14 +6,15 @@ apply plugin: 'java'
 sourceCompatibility = 1.9
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    compile 'com.google.guava:guava:23.0'
-    compile 'io.vavr:vavr:0.9.2'
+	implementation 'com.google.guava:guava:23.0'
+	implementation 'org.apache.commons:commons-lang3:3.7'
+	implementation 'io.vavr:vavr:0.9.2'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'com.google.truth:truth:0.39'
-    testCompile 'org.mockito:mockito-core:2.13.0'
+	testImplementation 'junit:junit:4.12'
+	testImplementation 'com.google.truth:truth:0.39'
+	testImplementation 'org.mockito:mockito-core:2.13.0'
 }
