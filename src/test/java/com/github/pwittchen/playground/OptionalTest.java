@@ -48,7 +48,7 @@ public class OptionalTest {
 		// given
 		final Optional<Object> optional = Optional.of(new Object());
 
-		// when then
+		// when then (available since Java 9)
 		optional.ifPresentOrElse(object -> assertThat(object).isNotNull(), Assert::fail);
 	}
 
