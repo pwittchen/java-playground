@@ -1,5 +1,6 @@
 package com.github.pwittchen.playground;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -62,6 +63,27 @@ public class OptionalTest {
 
 		// when then
 		optional.ifPresentOrElse(object -> fail(), () -> assertThat(optional.isPresent()).isFalse());
+	}
+
+	@Test
+	public void shouldVerifyNullObjectPatternFromApacheCommons() {
+		// when
+		final ObjectUtils.Null nullObject = ObjectUtils.NULL;
+
+		// then
+		assertThat(nullObject).isInstanceOf(ObjectUtils.NULL.getClass());
+	}
+
+	@Test
+	public void shouldReturnDefaultIfNull() {
+		// given
+		final Object object = new Object();
+
+		// when
+		final Object returnedValue = ObjectUtils.defaultIfNull(null, object);
+
+		// then
+		assertThat(returnedValue).isEqualTo(object);
 	}
 
 	//TODO #0 add more tests with Optional
