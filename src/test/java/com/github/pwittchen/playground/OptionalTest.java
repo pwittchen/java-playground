@@ -163,4 +163,28 @@ public class OptionalTest {
     // then
     assertThat(value).isEmpty();
   }
+
+  @Test
+  public void shouldBePresentFromNullable() {
+    // given
+    Optional optional = Optional.ofNullable(new Object());
+
+    // when
+    boolean present = optional.isPresent();
+
+    // then
+    assertThat(present).isTrue();
+  }
+
+  @Test
+  public void shouldBeEmptyFromNullable() {
+    // given
+    Optional optional = Optional.ofNullable(null);
+
+    // when
+    boolean present = optional.isPresent();
+
+    // then
+    assertThat(present).isFalse();
+  }
 }
