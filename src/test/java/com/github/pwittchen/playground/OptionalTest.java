@@ -25,8 +25,11 @@ public class OptionalTest {
 		final boolean isPresent = optional.isPresent();
 
 		// then
+		if (optional.isPresent()) {
+			assertThat(optional.get()).isNotNull();
+		}
+
 		assertThat(isPresent).isTrue();
-		assertThat(optional.get()).isNotNull();
 	}
 
 	@Test
