@@ -1,6 +1,7 @@
 package com.github.pwittchen.playground;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -48,6 +49,31 @@ public class OptionalTest {
 	}
 
 	@Test
+	public void shouldReturnAnotherValue() {
+		// given
+		final Optional<Object> optional = Optional.empty();
+
+		// when
+		final Object returnedValue = optional.orElse(StringUtils.EMPTY);
+
+		// then
+		assertThat(returnedValue).isInstanceOf(String.class);
+	}
+
+	@Test
+	public void shouldNotReturnAnotherValue() {
+		// given
+		final Optional<Object> optional = Optional.of(new Object());
+
+		// when
+		final Object returnedValue = optional.orElse(StringUtils.EMPTY);
+
+		// then
+		assertThat(returnedValue).isNotNull();
+		assertThat(returnedValue).isNotInstanceOf(String.class);
+	}
+
+	@Test
 	public void shouldBePresentViaIfPresentOrElse() {
 		// given
 		final Optional<Object> optional = Optional.of(new Object());
@@ -61,7 +87,7 @@ public class OptionalTest {
 		// given
 		final Optional<Object> optional = Optional.empty();
 
-		// when then
+		// when then (available since Java 9)
 		optional.ifPresentOrElse(object -> fail(), () -> assertThat(optional.isPresent()).isFalse());
 	}
 
