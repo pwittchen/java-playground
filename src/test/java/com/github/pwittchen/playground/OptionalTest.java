@@ -60,4 +60,9 @@ public class OptionalTest {
 		// when then
 		optional.ifPresentOrElse(object -> fail(), () -> assertThat(optional.isPresent()).isFalse());
 	}
+
+	//TODO #0 add more tests with Optional
+	//TODO #1 add test with map
+	//TODO #2 add test with Guava
+	//TODO #3 add test with Vavr
 }
