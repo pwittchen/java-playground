@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -25,6 +26,7 @@ public class OptionalTest {
 
 		// then
 		assertThat(isPresent).isTrue();
+		assertThat(optional.get()).isNotNull();
 	}
 
 	@Test
@@ -37,6 +39,15 @@ public class OptionalTest {
 
 		// then
 		assertThat(isPresent).isFalse();
+	}
+
+	@Test(expected = NoSuchElementException.class)
+	public void shouldThrowNoSuchElementException() {
+		// when
+		final Optional<Object> optional = Optional.empty();
+
+		// then
+		optional.get();
 	}
 
 	@Test
