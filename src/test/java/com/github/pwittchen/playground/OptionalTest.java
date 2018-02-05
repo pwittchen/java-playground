@@ -161,7 +161,7 @@ public class OptionalTest {
         .orElse(StringUtils.EMPTY);
 
     // then
-    assertThat(value).isEmpty();
+    assertThat(value.toString()).isEmpty();
   }
 
   @Test
