@@ -237,4 +237,19 @@ public class OptionalTest {
     // then
     assertThat(present).isFalse();
   }
+
+  /**
+   * this test demonstrates bad usage of Optional and shows that it cannot completely save us from NPE
+   */
+  @Test(expected = NullPointerException.class)
+  public void shouldThrowNullPointerException() {
+    // given
+    Optional<Object> optional = Optional.of(new Object());
+
+    // when
+    optional = null;
+
+    // then
+    optional.get();
+  }
 }
