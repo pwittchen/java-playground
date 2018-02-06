@@ -250,6 +250,6 @@ public class OptionalTest {
     optional = null;
 
     // then
-    optional.get();
+    optional.isPresent();
   }
 }
