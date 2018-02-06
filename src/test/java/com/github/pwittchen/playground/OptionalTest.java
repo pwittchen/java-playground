@@ -144,7 +144,8 @@ public class OptionalTest {
     final Optional<Object> optional = Optional.empty();
 
     // when
-    final String value = optional.map(o -> o.toString())
+    final String value = optional
+        .map(o -> o.toString())
         .orElse(StringUtils.EMPTY);
 
     // then
@@ -157,7 +158,8 @@ public class OptionalTest {
     final Optional<Object> optional = Optional.empty();
 
     // when
-    final String value = optional.map(Object::toString)
+    final String value = optional
+        .map(Object::toString)
         .orElse(StringUtils.EMPTY);
 
     // then
@@ -167,10 +169,10 @@ public class OptionalTest {
   @Test
   public void shouldBePresentFromNullable() {
     // given
-    Optional optional = Optional.ofNullable(new Object());
+    final Optional optional = Optional.ofNullable(new Object());
 
     // when
-    boolean present = optional.isPresent();
+    final boolean present = optional.isPresent();
 
     // then
     assertThat(present).isTrue();
@@ -179,10 +181,10 @@ public class OptionalTest {
   @Test
   public void shouldBeEmptyFromNullable() {
     // given
-    Optional optional = Optional.ofNullable(null);
+    final Optional optional = Optional.ofNullable(null);
 
     // when
-    boolean present = optional.isPresent();
+    final boolean present = optional.isPresent();
 
     // then
     assertThat(present).isFalse();

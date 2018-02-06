@@ -2,9 +2,11 @@ package com.github.pwittchen.playground.vavr;
 
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Exploratory Test Case case to verify work of Option type from Vavr
@@ -66,4 +68,34 @@ public class OptionTest {
   private Object getObject() {
     throw new NullPointerException("Surprise! There's no Object!");
   }
+
+  @Test
+  public void shouldConsumeOptionForEach() {
+    // given
+    final Option<Object> option = Option.of(new Object());
+
+    // when
+    option.forEach(object -> {
+      // then
+      if (option.isDefined()) {
+        assertThat(object).isNotNull();
+      } else {
+        fail();
+      }
+    });
+  }
+
+  @Test
+  public void shouldConsumeOptionPeek() {
+    // given
+    final Option<Object> option = Option.of(new Object());
+
+    // when, then
+    option
+        .peek(object -> assertThat(object).isNotNull())
+        .onEmpty(Assert::fail);
+  }
+
+  //TODO #1 write tests for "orElseGet"
+  //TODO #2 write tests for "or"
 }
