@@ -11,6 +11,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static com.google.common.truth.Truth.assertThat;
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
+import static io.vavr.API.Match;
+import static io.vavr.Patterns.$None;
+import static io.vavr.Patterns.$Some;
 import static org.junit.Assert.fail;
 
 /**
@@ -141,5 +146,35 @@ public class OptionTest {
 
   private Object getObject() {
     throw new NullPointerException("Surprise! There's no Object!");
+  }
+
+  @Test
+  public void shouldPerformPatternMatching() {
+    // given
+    final Option<String> option = Option.of("my string");
+
+    // when
+    final String result = Match(option).of(
+        Case($Some($()), String::toUpperCase),
+        Case($None(), () -> StringUtils.EMPTY)
+    );
+
+    // then
+    assertThat(result).isEqualTo("MY STRING");
+  }
+
+  @Test
+  public void shouldPerformPatternMatchingForNone() {
+    // given
+    final Option<String> option = Option.none();
+
+    // when
+    final String result = Match(option).of(
+        Case($Some($()), String::toUpperCase),
+        Case($None(), () -> StringUtils.EMPTY)
+    );
+
+    // then
+    assertThat(result).isEmpty();
   }
 }
