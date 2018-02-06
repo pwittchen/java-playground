@@ -1,7 +1,11 @@
 package com.github.pwittchen.playground.vavr;
 
+import io.vavr.collection.Stream;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -54,23 +58,6 @@ public class OptionTest {
   }
 
   @Test
-  public void shouldConvertExceptionToOption() {
-
-    // when
-    final Object object = Try.of(this::getObject)
-        .toOption()
-        .getOrElse(new Object());
-
-    // then
-    assertThat(object).isNotNull();
-    // and no exception is thrown here!
-  }
-
-  private Object getObject() {
-    throw new NullPointerException("Surprise! There's no Object!");
-  }
-
-  @Test
   public void shouldConsumeOptionForEach() {
     // given
     final Option<Object> option = Option.of(new Object());
@@ -119,5 +106,40 @@ public class OptionTest {
 
     // then
     assertThat(returnedValue.toString()).isEmpty();
+  }
+
+  @Test
+  public void shouldProcessCollectionOfOptions() {
+    // given
+    final List<Option<Object>> options = Arrays.asList(
+        Option.of(new Object()),
+        Option.none(),
+        Option.of(new Object())
+    );
+
+    // when
+    final List<Object> returnedResult = Stream.ofAll(options)
+        .flatMap(Option::toStream)
+        .collect(Collectors.toList());
+
+    // then
+    assertThat(returnedResult.size()).isEqualTo(2);
+  }
+
+  @Test
+  public void shouldConvertExceptionToOption() {
+
+    // when
+    final Object object = Try.of(this::getObject)
+        .toOption()
+        .getOrElse(new Object());
+
+    // then
+    assertThat(object).isNotNull();
+    // and no exception is thrown here!
+  }
+
+  private Object getObject() {
+    throw new NullPointerException("Surprise! There's no Object!");
   }
 }
