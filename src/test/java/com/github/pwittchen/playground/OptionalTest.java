@@ -2,6 +2,7 @@ package com.github.pwittchen.playground;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.function.Supplier;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
@@ -102,6 +103,19 @@ public class OptionalTest {
 
     // when then (available since Java 9)
     optional.ifPresentOrElse(object -> fail(), () -> assertThat(optional.isPresent()).isFalse());
+  }
+
+  @Test
+  public void shouldNotBePresentViaOr() {
+    // given
+    final Optional<Object> optional = Optional.empty();
+
+    // when then (available since Java 9)
+    final Optional<Object> returnedOptionalValue = optional.or(() -> Optional.of(new Object()));
+
+    // then
+    assertThat(returnedOptionalValue.isPresent()).isTrue();
+    assertThat(returnedOptionalValue.get()).isNotNull();
   }
 
   @Test
