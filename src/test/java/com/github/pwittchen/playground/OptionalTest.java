@@ -1,8 +1,10 @@
 package com.github.pwittchen.playground;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
@@ -87,6 +89,9 @@ public class OptionalTest {
     assertThat(returnedValue).isNotInstanceOf(String.class);
   }
 
+  /**
+   * testing feature #1 of Java 9 -> case #1
+   */
   @Test
   public void shouldBePresentViaIfPresentOrElse() {
     // given
@@ -96,6 +101,9 @@ public class OptionalTest {
     optional.ifPresentOrElse(object -> assertThat(object).isNotNull(), Assert::fail);
   }
 
+  /**
+   * testing feature #1 of Java 9 -> case #2
+   */
   @Test
   public void shouldNotBePresentViaIfPresentOrElse() {
     // given
@@ -105,6 +113,9 @@ public class OptionalTest {
     optional.ifPresentOrElse(object -> fail(), () -> assertThat(optional.isPresent()).isFalse());
   }
 
+  /**
+   * testing feature #2 of Java 9 -> case #1
+   */
   @Test
   public void shouldNotBePresentViaOr() {
     // given
@@ -116,6 +127,29 @@ public class OptionalTest {
     // then
     assertThat(returnedOptionalValue.isPresent()).isTrue();
     assertThat(returnedOptionalValue.get()).isNotNull();
+  }
+
+  /**
+   * testing feature #3 of Java 9 -> case #1
+   */
+  @Test
+  public void shouldProcessCollectionOfOptionals() {
+    // given
+    final List<Optional<Object>> optionals =
+        Arrays.asList(
+            Optional.of(new Object()),
+            Optional.empty(),
+            Optional.of(new Object())
+        );
+
+    // when
+    final List<Object> outPutList = optionals
+        .stream()
+        .flatMap(Optional::stream)
+        .collect(Collectors.toList());
+
+    // then
+    assertThat(outPutList.size()).isEqualTo(2);
   }
 
   @Test
