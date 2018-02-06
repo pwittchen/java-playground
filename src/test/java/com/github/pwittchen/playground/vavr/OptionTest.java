@@ -2,7 +2,6 @@ package com.github.pwittchen.playground.vavr;
 
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-import java.util.function.Supplier;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
