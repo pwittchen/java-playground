@@ -2,6 +2,8 @@ package com.github.pwittchen.playground.vavr;
 
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import java.util.function.Supplier;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -96,6 +98,27 @@ public class OptionTest {
         .onEmpty(Assert::fail);
   }
 
-  //TODO #1 write tests for "orElseGet"
-  //TODO #2 write tests for "or"
+  @Test
+  public void shouldConsumeOptionWithGetOrElse() {
+    // given
+    final Option<Object> option = Option.of(new Object());
+
+    // when
+    final Object returnedValue = option.getOrElse(() -> StringUtils.EMPTY);
+
+    // then
+    assertThat(returnedValue.toString()).contains("@");
+  }
+
+  @Test
+  public void shouldConsumeOptionWithGetOrElseEmpty() {
+    // given
+    final Option<Object> option = Option.none();
+
+    // when
+    final Object returnedValue = option.getOrElse(() -> StringUtils.EMPTY);
+
+    // then
+    assertThat(returnedValue.toString()).isEmpty();
+  }
 }
