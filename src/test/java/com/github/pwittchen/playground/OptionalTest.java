@@ -252,4 +252,56 @@ public class OptionalTest {
     // then
     optional.isPresent();
   }
+
+  @Test
+  public void shouldReturnRealObject() {
+    AbstractObject object = new RealObject();
+
+    Object value = object.getObject();
+    boolean isNull = object.isNull();
+
+    assertThat(isNull).isFalse();
+    assertThat(value).isNotNull();
+  }
+
+  @Test
+  public void shouldReturnNullObject() {
+    AbstractObject object = new NullObject();
+
+    boolean isNull = object.isNull();
+
+    if (!object.isNull()) {
+      Object returnedValue = object.getObject();
+    }
+
+    assertThat(isNull).isTrue();
+  }
+
+  public interface AbstractObject {
+    boolean isNull();
+
+    Object getObject();
+  }
+
+  public class RealObject implements AbstractObject {
+
+    @Override public boolean isNull() {
+      return false;
+    }
+
+    @Override public Object getObject() {
+      return new Object();
+    }
+  }
+
+  public class NullObject implements AbstractObject {
+
+    @Override public boolean isNull() {
+      return true;
+    }
+
+    @Override public Object getObject() {
+      return null;
+    }
+  }
 }
