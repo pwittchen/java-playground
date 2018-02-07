@@ -1,4 +1,4 @@
-package com.github.pwittchen.playground;
+package com.github.pwittchen.playground.guava;
 
 import com.google.common.base.Optional;
 import org.junit.Test;

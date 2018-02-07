@@ -1,4 +1,4 @@
-package com.github.pwittchen.playground;
+package com.github.pwittchen.playground.core;
 
 import java.util.Arrays;
 import java.util.List;
