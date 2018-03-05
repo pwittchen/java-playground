@@ -16,7 +16,6 @@ public class DynamicProxyTest {
 
   @Test
   public void shouldInvokePutMethodViaProxy() {
-
     // given
     final Map proxyInstance = createProxyInstance();
 
@@ -29,7 +28,6 @@ public class DynamicProxyTest {
 
   @Test
   public void shouldInvokeGetFromProxyViaLambda() {
-
     // given
     final Map proxyInstance = createLambdaProxyInstance();
 
@@ -42,7 +40,6 @@ public class DynamicProxyTest {
 
   @Test(expected = UnsupportedOperationException.class)
   public void shouldInvokePutFromProxyViaLambdaAndThrowException() {
-
     // given
     final Map proxyInstance = createLambdaProxyInstance();
 
@@ -85,6 +82,19 @@ public class DynamicProxyTest {
         });
   }
 
+  private Map createTimingProxyInstance() {
+    return (Map) Proxy.newProxyInstance(
+        DynamicProxyTest.class.getClassLoader(), new Class[] {Map.class},
+        new TimingDynamicInvocationHandler(new HashMap<>()));
+  }
+
+  private CharSequence createCharSequenceProxyInstance() {
+    return (CharSequence) Proxy.newProxyInstance(
+        DynamicProxyTest.class.getClassLoader(),
+        new Class[] {CharSequence.class},
+        new TimingDynamicInvocationHandler("Hello World"));
+  }
+
   class DynamicInvocationHandler implements InvocationHandler {
 
     @Override
@@ -94,21 +104,7 @@ public class DynamicProxyTest {
     }
   }
 
-  private Map createTimingProxyInstance() {
-    return (Map) Proxy.newProxyInstance(
-        DynamicProxyTest.class.getClassLoader(), new Class[] { Map.class },
-        new TimingDynamicInvocationHandler(new HashMap<>()));
-  }
-
-  private CharSequence createCharSequenceProxyInstance() {
-    return (CharSequence) Proxy.newProxyInstance(
-        DynamicProxyTest.class.getClassLoader(),
-        new Class[] { CharSequence.class },
-        new TimingDynamicInvocationHandler("Hello World"));
-  }
-
   class TimingDynamicInvocationHandler implements InvocationHandler {
-
 
     private final Map<String, Method> methods = new HashMap<>();
     private Object target;
@@ -127,7 +123,8 @@ public class DynamicProxyTest {
       final long start = System.nanoTime();
       final Object result = methods.get(method.getName()).invoke(target, args);
       final long elapsed = System.nanoTime() - start;
-      System.out.println(String.format("Executing %s finished in %s ns", method.getName(), elapsed));
+      System.out.println(
+          String.format("Executing %s finished in %s ns", method.getName(), elapsed));
       return result;
     }
   }
