@@ -4,10 +4,11 @@ a repo created for testing and learning different features of java and jvm libra
 currently tested stuff:
 - Core (Java 8, 9)
 - Concurrency
-- Patterns
+- Patterns (Design Patterns implementations)
 - Libs
   - Guava
   - RxJava
+  - Reactor
   - Vavr
 
 To run all tests, type:
