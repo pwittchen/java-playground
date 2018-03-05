@@ -9,3 +9,9 @@ currently tested stuff:
   - Guava
   - RxJava
   - Vavr
+
+To run all tests, type:
+
+```
+./gradlew test
+```
