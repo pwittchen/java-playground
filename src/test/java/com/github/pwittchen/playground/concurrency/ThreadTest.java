@@ -29,25 +29,16 @@ public class ThreadTest {
     // daemon tasks have low priority and JVM can kill them anytime
     // no matter if they're finished or not
 
-    DaemonThread thread = new DaemonThread();
-    thread.run();
+    Thread thread = new Thread(() -> {
+      System.out.println("executed: " + Thread.currentThread().toString());
+      System.out.println("is daemon: " + Thread.currentThread().isDaemon());
+    });
+    thread.setDaemon(true);
+    thread.start();
     Thread.sleep(2000);
 
     assertThat(thread.isDaemon()).isTrue();
     assertThat(thread.isAlive()).isFalse();
-  }
-
-  private class DaemonThread extends Thread {
-
-    public DaemonThread() {
-      setDaemon(true);
-    }
-
-    @Override public void run() {
-      super.run();
-      System.out.println("executed: " + Thread.currentThread().toString());
-      System.out.println("is daemon: " + isDaemon());
-    }
   }
 
   @Test
