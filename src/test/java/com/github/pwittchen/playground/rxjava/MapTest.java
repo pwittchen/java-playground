@@ -7,7 +7,31 @@ import org.junit.Test;
 public class MapTest {
 
   @Test
-  public void shouldExecuteSwitchMapOperator() throws InterruptedException {
+  public void shouldUseMapOperatorForTransformingDataIntoTheSameType() {
+
+    // map operator can transform incoming value
+    // into another one of the same type
+
+    Flowable
+        .range(1,10)
+        .map(integer -> integer * 2)
+        .subscribe(System.out::println);
+  }
+
+  @Test
+  public void shouldUseFlatMapOperatorForTransformingDataIntoTheDifferentType() {
+
+    // flat map operator can transform incoming value
+    // into another one of the same type or of a different type by creating an 'internal' stream
+
+    Flowable
+        .range(1,10)
+        .flatMap(integer -> Flowable.just("transformed value"))
+        .subscribe(System.out::println);
+  }
+
+  @Test
+  public void shouldUseSwitchMapOperator() throws InterruptedException {
 
     // please note the difference from flatMap operator
     // 'internal' stream is being cancelled stops emitting values
@@ -23,7 +47,7 @@ public class MapTest {
   }
 
   @Test
-  public void shouldExecuteFlatMapOperator() throws InterruptedException {
+  public void shouldUseFlatMapOperator() throws InterruptedException {
 
     // please note the difference from switchMap operator
     // 'internal' stream is NOT being cancelled and keeps emitting values
