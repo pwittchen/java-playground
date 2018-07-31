@@ -10,13 +10,13 @@ repositories {
 }
 
 dependencies {
-  implementation 'com.google.guava:guava:23.0'
+  implementation 'com.google.guava:guava:23.6.1-jre'
   implementation 'org.apache.commons:commons-lang3:3.7'
   implementation 'io.vavr:vavr:0.9.2'
-  implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
-  implementation 'io.projectreactor:reactor-core:3.1.5.RELEASE'
+  implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+  implementation 'io.projectreactor:reactor-core:3.1.8.RELEASE'
 
   testImplementation 'junit:junit:4.12'
-  testImplementation 'com.google.truth:truth:0.39'
-  testImplementation 'org.mockito:mockito-core:2.13.0'
+  testImplementation 'com.google.truth:truth:0.42'
+  testImplementation 'org.mockito:mockito-core:2.20.1'
 }
