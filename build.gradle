@@ -3,7 +3,10 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.9
+allprojects {
+  sourceCompatibility = 1.9
+  targetCompatibility = 1.9
+}
 
 repositories {
   mavenCentral()
