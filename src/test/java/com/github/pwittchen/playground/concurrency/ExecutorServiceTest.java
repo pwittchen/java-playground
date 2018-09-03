@@ -9,6 +9,7 @@ public class ExecutorServiceTest {
 
   @Test
   public void shouldRunThreadWithSingleThreadExecutor() {
+    // The newSingleThreadExecutor method creates an executor that executes a single task at a time.
     final ExecutorService executorService = Executors.newSingleThreadExecutor();
     executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
   }
@@ -26,6 +27,8 @@ public class ExecutorServiceTest {
 
   @Test
   public void shouldRunThreadsWithCachedThreadPool() {
+    // The newCachedThreadPool method creates an executor with an expandable thread pool.
+    // This executor is suitable for applications that launch many short-lived tasks.
     final ExecutorService executorService = Executors.newCachedThreadPool();
     executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
     executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
@@ -54,6 +57,7 @@ public class ExecutorServiceTest {
 
   @Test
   public void shouldRunThreadsWithScheduledThreadPool() {
+    // A ThreadPoolExecutor that can additionally schedule commands to run after a given delay, or to execute periodically.
     final ExecutorService executorService = Executors.newScheduledThreadPool(2);
     executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
     executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
