@@ -14,6 +14,55 @@ public class ExecutorServiceTest {
   }
 
   @Test
+  public void shouldRunThreadsWithFixedThreadPool() {
+    final ExecutorService executorService = Executors.newFixedThreadPool(4);
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+  }
+
+  @Test
+  public void shouldRunThreadsWithCachedThreadPool() {
+    final ExecutorService executorService = Executors.newCachedThreadPool();
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+  }
+
+  @Test
+  public void shouldRunThreadsWithStealingThreadPool() {
+    // it creates ForkJoinPool
+    final ExecutorService executorService = Executors.newWorkStealingPool();
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+  }
+
+  @Test
+  public void shouldRunThreadsWithSingleThreadExecutor() {
+    final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+  }
+
+  @Test
+  public void shouldRunThreadsWithScheduledThreadPool() {
+    final ExecutorService executorService = Executors.newScheduledThreadPool(2);
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+    executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
+  }
+
+  @Test
   public void shouldSubmitMultipleTasksToExecutor() {
     final ExecutorService executorService = Executors.newSingleThreadExecutor();
     executorService.submit(() -> {
@@ -45,7 +94,7 @@ public class ExecutorServiceTest {
     } catch (InterruptedException e) {
       System.out.println("tasks interrupted");
     } finally {
-      if(!executorService.isTerminated()) {
+      if (!executorService.isTerminated()) {
         System.out.println("cancelling not finished tasks");
         executorService.shutdownNow();
       } else {
