@@ -9,7 +9,7 @@ public class ThreadTest {
   @Test
   public void shouldCreateRegularThread() throws InterruptedException {
 
-    Thread thread = new Thread(() -> {
+    final Thread thread = new Thread(() -> {
       System.out.println("executed: " + Thread.currentThread().toString());
       System.out.println("is daemon: " + Thread.currentThread().isDaemon());
     });
@@ -29,7 +29,7 @@ public class ThreadTest {
     // daemon tasks have low priority and JVM can kill them anytime
     // no matter if they're finished or not
 
-    Thread thread = new Thread(() -> {
+    final Thread thread = new Thread(() -> {
       System.out.println("executed: " + Thread.currentThread().toString());
       System.out.println("is daemon: " + Thread.currentThread().isDaemon());
     });
@@ -47,8 +47,8 @@ public class ThreadTest {
     // note: ThreadLocal has value which is 'internal'
     // for a given thread and won't be shared among different threads
 
-    Thread thread = new Thread(() -> {
-      ThreadLocal<Integer> threadLocal = ThreadLocal.withInitial(() -> 1);
+    final Thread thread = new Thread(() -> {
+      final ThreadLocal<Integer> threadLocal = ThreadLocal.withInitial(() -> 1);
       threadLocal.set(threadLocal.get() + 1);
       System.out.println(threadLocal.get());
     });
