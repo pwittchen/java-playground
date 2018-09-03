@@ -9,13 +9,13 @@ public class ExecutorServiceTest {
 
   @Test
   public void shouldRunThreadWithSingleThreadExecutor() {
-    ExecutorService executorService = Executors.newSingleThreadExecutor();
+    final ExecutorService executorService = Executors.newSingleThreadExecutor();
     executorService.submit(() -> System.out.println(Thread.currentThread().getName()));
   }
 
   @Test
   public void shouldSubmitMultipleTasksToExecutor() {
-    ExecutorService executorService = Executors.newSingleThreadExecutor();
+    final ExecutorService executorService = Executors.newSingleThreadExecutor();
     executorService.submit(() -> {
       System.out.println("task 1: ".concat(Thread.currentThread().getName()));
     });
@@ -26,7 +26,7 @@ public class ExecutorServiceTest {
 
   @Test
   public void shouldShutDownExecutor() {
-    ExecutorService executorService = Executors.newSingleThreadExecutor();
+    final ExecutorService executorService = Executors.newSingleThreadExecutor();
     executorService.submit(() -> {
       System.out.println(Thread.currentThread().getName());
       System.out.println("task started");
