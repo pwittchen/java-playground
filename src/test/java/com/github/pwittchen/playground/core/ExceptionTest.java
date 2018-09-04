@@ -1,5 +1,6 @@
 package com.github.pwittchen.playground.core;
 
+import io.reactivex.Completable;
 import io.vavr.control.Try;
 import org.junit.Rule;
 import org.junit.Test;
@@ -54,12 +55,30 @@ public class ExceptionTest {
     assertThat(object).isInstanceOf(ErrorObject.class);
   }
 
+  @Test
+  public void shouldTestExceptionWithRxJava() {
+    final Throwable throwable = toCompletable(this::throwException).blockingGet();
+    assertThat(throwable).isInstanceOf(RuntimeException.class);
+    assertThat(throwable.getMessage()).isEqualTo(EXCEPTION_MESSAGE);
+  }
+
   private void throwException() {
     throw new RuntimeException(EXCEPTION_MESSAGE);
   }
 
   private Object throwExceptionObject() {
     throw new RuntimeException(EXCEPTION_MESSAGE);
+  }
+
+  private Completable toCompletable(final Runnable runnable) {
+    return Completable.create(emitter -> {
+      try {
+        runnable.run();
+        emitter.onComplete();
+      } catch (final Exception e) {
+        emitter.onError(e);
+      }
+    });
   }
 
   private class ErrorObject {
