@@ -1,5 +1,6 @@
 package com.github.pwittchen.playground.core;
 
+import io.vavr.control.Try;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -41,7 +42,26 @@ public class ExceptionTest {
     throwException();
   }
 
+  @Test
+  public void shouldTestExceptionWithTryCatchAndVavr() {
+
+    final Object object =
+        Try
+            .of(this::throwExceptionObject)
+            .toOption()
+            .getOrElse(new ErrorObject());
+
+    assertThat(object).isInstanceOf(ErrorObject.class);
+  }
+
   private void throwException() {
     throw new RuntimeException(EXCEPTION_MESSAGE);
+  }
+
+  private Object throwExceptionObject() {
+    throw new RuntimeException(EXCEPTION_MESSAGE);
+  }
+
+  private class ErrorObject {
   }
 }
