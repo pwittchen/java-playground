@@ -18,6 +18,7 @@ dependencies {
   implementation 'io.vavr:vavr:0.9.2'
   implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
   implementation 'io.projectreactor:reactor-core:3.1.8.RELEASE'
+  implementation 'org.jooq:joor:0.9.7'
 
   testImplementation 'junit:junit:4.12'
   testImplementation 'com.google.truth:truth:0.42'

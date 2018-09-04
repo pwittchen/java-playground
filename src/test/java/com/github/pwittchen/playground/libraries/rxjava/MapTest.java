@@ -1,4 +1,4 @@
-package com.github.pwittchen.playground.rxjava;
+package com.github.pwittchen.playground.libraries.rxjava;
 
 import io.reactivex.Flowable;
 import java.util.concurrent.TimeUnit;

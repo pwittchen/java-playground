@@ -1,4 +1,4 @@
-package com.github.pwittchen.playground.vavr;
+package com.github.pwittchen.playground.libraries.vavr;
 
 import io.vavr.collection.Stream;
 import io.vavr.control.Option;
