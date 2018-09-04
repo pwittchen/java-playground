@@ -11,34 +11,37 @@ import static com.google.common.truth.Truth.assertThat;
  */
 public class ExceptionTest {
 
+  private static final String EXCEPTION_MESSAGE = "test exception";
+
   @Rule
   public ExpectedException expectedException = ExpectedException.none();
 
   @Test
   public void shouldTestExceptionWithTryCatch() {
-
-    final Exception caughtException;
+    Exception caughtException = null;
 
     try {
-      throw new RuntimeException("test exception");
+      throwException();
     } catch (final Exception e) {
       caughtException = e;
     }
 
-    assertThat(caughtException).hasMessageThat().isEqualTo("test exception");
+    assertThat(caughtException).hasMessageThat().isEqualTo(EXCEPTION_MESSAGE);
   }
 
   @Test(expected = RuntimeException.class)
   public void shouldTestExceptionWithExpectedAnnotation() throws RuntimeException {
-    throw new RuntimeException("test exception");
+    throwException();
   }
 
   @Test
   public void shouldTestExceptionWithRuleAnnotation() throws RuntimeException {
-
     expectedException.expect(RuntimeException.class);
-    expectedException.expectMessage("test exception");
+    expectedException.expectMessage(EXCEPTION_MESSAGE);
+    throwException();
+  }
 
-    throw new RuntimeException("test exception");
+  private void throwException() {
+    throw new RuntimeException(EXCEPTION_MESSAGE);
   }
 }
