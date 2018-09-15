@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 /**
  * In this test case I'm evaluating different methods of testing exceptions
@@ -41,6 +42,16 @@ public class ExceptionTest {
     expectedException.expect(RuntimeException.class);
     expectedException.expectMessage(EXCEPTION_MESSAGE);
     throwException();
+  }
+
+  @Test
+  public void shouldTestExceptionWithAssertJ() throws RuntimeException {
+    Throwable thrown = catchThrowable(this::throwException);
+
+    org.assertj.core.api.Assertions
+        .assertThat(thrown)
+        .isInstanceOf(RuntimeException.class)
+        .hasMessage(EXCEPTION_MESSAGE);
   }
 
   @Test
